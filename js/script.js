@@ -1,3 +1,5 @@
+// TODO: Make sure numbers are not ruin the calculators display
+
 // let firstOperand = [];
 let operator = askForOperator();
 // let secondOperand = [];
