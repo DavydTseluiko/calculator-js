@@ -1,3 +1,7 @@
+let firstOperand = [];
+let operator;
+let secondOperand = [];
+
 let firstNumber = askForNumber("first");
 let secondNumber = askForNumber("second");
 
