@@ -26,6 +26,9 @@ function displayLimitations() {
 
 function addFirstOperand(digit) {
   if (operator === null) {
+    if (firstOperand.length == 0 && digit.target.value == 0) {
+      return "There is already 0 on the screen as a first digit.";
+    }
     firstOperand.push(digit.target.value);
     console.log("firstOperand: ", firstOperand);
 
@@ -40,6 +43,10 @@ function addFirstOperand(digit) {
 function addSecondOperand(digit) {
   if (operator !== null) {
     operators.forEach((o) => o.classList.remove("active"));
+
+    if (secondOperand.length == 0 && digit.target.value == 0) {
+      return "There is already 0 on the screen as a first digit.";
+    }
 
     secondOperand.push(digit.target.value);
     console.log("secondOperand: ", secondOperand);
