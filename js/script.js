@@ -15,7 +15,7 @@ function clearDisplay() {
 
   display.textContent = 0;
   operators.forEach((o) => o.classList.remove("active"));
-  console.clear();
+  // console.clear();
 }
 
 function displayLimitations() {
@@ -132,16 +132,28 @@ function calculate() {
     return 0;
   }
 
+  if (secondOperand.length === 0) {
+    secondOperand = firstOperand;
+  }
+
   firstOperand = Number(firstOperand.join(""));
   secondOperand = Number(secondOperand.join(""));
 
   console.log("firstOperand inside calculate", firstOperand);
   console.log("secondOperand inside calculate", secondOperand);
 
-  const operation = operate(firstOperand, operator, secondOperand);
+  let operation = Math.round(operate(firstOperand, operator, secondOperand));
   console.log("result: ", operation);
 
   clearDisplay();
+  console.log("operation: ", operation);
+  console.log("operation length", String(operation).length);
+  if (String(operation).length > 9) {
+    operation = Math.round(operation);
+  }
+  if (operation === Infinity) {
+    operation = NaN;
+  }
   display.textContent = operation;
   if (isNaN(operation)) {
     firstOperand = [];
