@@ -26,7 +26,11 @@ function displayLimitations() {
 
 function addFirstOperand(digit) {
   if (operator === null) {
-    if (firstOperand.length == 0 && digit.target.value == 0) {
+    if (
+      firstOperand.length == 1 &&
+      firstOperand[0] == 0 &&
+      digit.target.value == 0
+    ) {
       return "There is already 0 on the screen as a first digit.";
     }
     firstOperand.push(digit.target.value);
@@ -44,7 +48,11 @@ function addSecondOperand(digit) {
   if (operator !== null) {
     operators.forEach((o) => o.classList.remove("active"));
 
-    if (secondOperand.length == 0 && digit.target.value == 0) {
+    if (
+      secondOperand.length == 1 &&
+      secondOperand[0] == 0 &&
+      digit.target.value == 0
+    ) {
       return "There is already 0 on the screen as a first digit.";
     }
 
@@ -100,7 +108,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
   if (a / b === Infinity) {
-    return "You can not divide by 0";
+    return NaN;
   }
   return a / b;
 }
@@ -135,7 +143,11 @@ function calculate() {
 
   clearDisplay();
   display.textContent = operation;
-  firstOperand = String(operation).split("");
+  if (isNaN(operation)) {
+    firstOperand = [];
+  } else {
+    firstOperand = String(operation).split("");
+  }
   console.log("firstOperand after calculation", firstOperand);
 }
 
