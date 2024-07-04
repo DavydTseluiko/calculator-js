@@ -1,10 +1,19 @@
 const display = document.querySelector("#display");
 const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
+const clear = document.querySelector(".clear");
 
 let firstOperand = [];
 let operator;
 let secondOperand = [];
+
+function clearDisplay() {
+  firstOperand = [];
+  operator;
+  secondOperand = [];
+
+  display.textContent = 0;
+}
 
 function displayLimitations() {
   if (display.textContent.length >= 9) {
@@ -104,6 +113,7 @@ console.log("operators: ", operators);
 
 operators.forEach((o) => o.addEventListener("click", addOperator));
 digits.forEach((digit) => digit.addEventListener("click", addDigitToScreen));
+clear.addEventListener("click", clearDisplay);
 
 // console.log("add: " + add(firstNumber, secondNumber));
 // console.log("subtract: " + subtract(firstNumber, secondNumber));
