@@ -85,6 +85,16 @@ function addDigitToScreen(digit) {
 function addOperator(o) {
   operators.forEach((o) => o.classList.remove("active"));
 
+  console.log("firstOperand inside oprerators function", firstOperand);
+  console.log("secondOperand inside oprerators function", secondOperand);
+
+  if (firstOperand.length > 0 && secondOperand.length > 0) {
+    calculate();
+  }
+  console.log("");
+  console.log("firstOperand inside oprerators function", firstOperand);
+  console.log("secondOperand inside oprerators function", secondOperand);
+
   console.log("current operator: ", operator);
   console.log("operator clicked", o.target.textContent);
 
