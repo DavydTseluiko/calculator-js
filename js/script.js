@@ -1,39 +1,56 @@
-// TODO: Make sure numbers are not ruin the calculators display
+const display = document.querySelector("#display");
+const digits = document.querySelectorAll(".digit");
 
-// let firstOperand = [];
-let operator = askForOperator();
-// let secondOperand = [];
+let firstOperand = [];
+let operator;
+let secondOperand = [];
 
-let firstNumber = askForNumber("first");
-let secondNumber = askForNumber("second");
-
-function askForNumber(text) {
-  let number;
-  do {
-    number = Number(prompt(`Enter ${text} number`));
-  } while (isNaN(number) || number == undefined);
-
-  return number;
+function displayLimitations() {
+  if (display.textContent.length >= 9) {
+    return true;
+  }
 }
 
-function askForOperator() {
-  let operator;
+function addFirstOperand(digit) {
+  if (operator === undefined) {
+    firstOperand.push(digit.target.value);
+    console.log("firstOperand: ", firstOperand);
 
-  do {
-    operator = prompt("Enter an operator (+, -, *, /)");
-  } while (
-    operator !== "+" &&
-    operator !== "-" &&
-    operator !== "*" &&
-    operator !== "/"
-  );
+    if (firstOperand.length === 1) {
+      return (display.textContent = digit.target.value);
+    }
 
-  return operator;
+    return (display.textContent += digit.target.value);
+  }
 }
 
-console.log("firsNumber: " + firstNumber);
-console.log("operator: ", operator);
-console.log("secondNumber: " + secondNumber);
+function addSecondOperand(digit) {
+  if (operator !== undefined) {
+    secondOperand.push(digit.target.value);
+    console.log("secondOperand: ", secondOperand);
+
+    if (secondOperand.length === 1) {
+      return (display.textContent = digit.target.value);
+    }
+
+    return (display.textContent += digit.target.value);
+  }
+}
+
+function addDigitToScreen(digit) {
+  console.log("digit's clicked: ", digit.target.value);
+  console.log(operator);
+  console.log("display content: ", display.textContent);
+
+  if (displayLimitations()) {
+    return "There is to much numbers on the display.";
+  }
+
+  addFirstOperand(digit);
+  addSecondOperand(digit);
+
+  console.log("");
+}
 
 function add(a, b) {
   return a + b;
@@ -67,9 +84,12 @@ function operate(firstOperand, operator, secondOperand) {
   }
 }
 
-console.log("add: " + add(firstNumber, secondNumber));
-console.log("subtract: " + subtract(firstNumber, secondNumber));
-console.log("multiply: " + multiply(firstNumber, secondNumber));
-console.log("divide: " + divide(firstNumber, secondNumber));
-console.log("");
-console.log(operate(firstNumber, operator, secondNumber));
+console.log("digits: ", digits);
+digits.forEach((digit) => digit.addEventListener("click", addDigitToScreen));
+
+// console.log("add: " + add(firstNumber, secondNumber));
+// console.log("subtract: " + subtract(firstNumber, secondNumber));
+// console.log("multiply: " + multiply(firstNumber, secondNumber));
+// console.log("divide: " + divide(firstNumber, secondNumber));
+// console.log("");
+// console.log(operate(firstNumber, operator, secondNumber));
