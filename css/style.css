@@ -68,6 +68,11 @@ button[value="0"] {
 .operator,
 .equals {
   background-color: #ff8f1f;
+  transition: all 0.3s;
+}
+
+.calculator > .operator.active {
+  background-color: #ffc68d;
 }
 
 .clear,
@@ -75,4 +80,3 @@ button[value="0"] {
 .percent {
   background-color: dodgerblue;
 }
-

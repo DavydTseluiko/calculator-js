@@ -1,5 +1,6 @@
 const display = document.querySelector("#display");
 const digits = document.querySelectorAll(".digit");
+const operators = document.querySelectorAll(".operator");
 
 let firstOperand = [];
 let operator;
@@ -26,6 +27,8 @@ function addFirstOperand(digit) {
 
 function addSecondOperand(digit) {
   if (operator !== undefined) {
+    operators.forEach((o) => o.classList.remove("active"));
+
     secondOperand.push(digit.target.value);
     console.log("secondOperand: ", secondOperand);
 
@@ -39,7 +42,7 @@ function addSecondOperand(digit) {
 
 function addDigitToScreen(digit) {
   console.log("digit's clicked: ", digit.target.value);
-  console.log(operator);
+  console.log("current operator: ", operator);
   console.log("display content: ", display.textContent);
 
   if (displayLimitations()) {
@@ -50,6 +53,18 @@ function addDigitToScreen(digit) {
   addSecondOperand(digit);
 
   console.log("");
+}
+
+function addOperator(o) {
+  operators.forEach((o) => o.classList.remove("active"));
+
+  console.log("current operator: ", operator);
+  console.log("operator clicked", o.target.textContent);
+
+  o.target.classList.add("active");
+  console.log(o.target.classList);
+
+  operator = o.target.textContent;
 }
 
 function add(a, b) {
@@ -85,6 +100,9 @@ function operate(firstOperand, operator, secondOperand) {
 }
 
 console.log("digits: ", digits);
+console.log("operators: ", operators);
+
+operators.forEach((o) => o.addEventListener("click", addOperator));
 digits.forEach((digit) => digit.addEventListener("click", addDigitToScreen));
 
 // console.log("add: " + add(firstNumber, secondNumber));
