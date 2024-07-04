@@ -2,17 +2,20 @@ const display = document.querySelector("#display");
 const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const clear = document.querySelector(".clear");
+const equals = document.querySelector(".equals");
 
 let firstOperand = [];
-let operator;
+let operator = null;
 let secondOperand = [];
 
 function clearDisplay() {
   firstOperand = [];
-  operator;
+  operator = null;
   secondOperand = [];
 
   display.textContent = 0;
+  operators.forEach((o) => o.classList.remove("active"));
+  console.clear();
 }
 
 function displayLimitations() {
@@ -22,7 +25,7 @@ function displayLimitations() {
 }
 
 function addFirstOperand(digit) {
-  if (operator === undefined) {
+  if (operator === null) {
     firstOperand.push(digit.target.value);
     console.log("firstOperand: ", firstOperand);
 
@@ -35,7 +38,7 @@ function addFirstOperand(digit) {
 }
 
 function addSecondOperand(digit) {
-  if (operator !== undefined) {
+  if (operator !== null) {
     operators.forEach((o) => o.classList.remove("active"));
 
     secondOperand.push(digit.target.value);
@@ -108,16 +111,31 @@ function operate(firstOperand, operator, secondOperand) {
   }
 }
 
+function calculate() {
+  if (operator === null) {
+    console.log("Can't calculate without operator");
+    return 0;
+  }
+
+  firstOperand = Number(firstOperand.join(""));
+  secondOperand = Number(secondOperand.join(""));
+
+  console.log("firstOperand inside calculate", firstOperand);
+  console.log("secondOperand inside calculate", secondOperand);
+
+  const operation = operate(firstOperand, operator, secondOperand);
+  console.log("result: ", operation);
+
+  clearDisplay();
+  display.textContent = operation;
+  firstOperand = String(operation).split("");
+  console.log("firstOperand after calculation", firstOperand);
+}
+
 console.log("digits: ", digits);
 console.log("operators: ", operators);
 
 operators.forEach((o) => o.addEventListener("click", addOperator));
 digits.forEach((digit) => digit.addEventListener("click", addDigitToScreen));
 clear.addEventListener("click", clearDisplay);
-
-// console.log("add: " + add(firstNumber, secondNumber));
-// console.log("subtract: " + subtract(firstNumber, secondNumber));
-// console.log("multiply: " + multiply(firstNumber, secondNumber));
-// console.log("divide: " + divide(firstNumber, secondNumber));
-// console.log("");
-// console.log(operate(firstNumber, operator, secondNumber));
+equals.addEventListener("click", calculate);
