@@ -3,6 +3,7 @@ const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const clear = document.querySelector(".clear");
 const equals = document.querySelector(".equals");
+const percent = document.querySelector(".percent");
 
 let firstOperand = [];
 let operator = null;
@@ -177,6 +178,11 @@ function calculate() {
   console.log("firstOperand after calculation", firstOperand);
 }
 
+function percentValue() {
+  console.log("current number on display: ", display.textContent);
+  display.textContent /= 100;
+}
+
 console.log("digits: ", digits);
 console.log("operators: ", operators);
 
@@ -184,3 +190,4 @@ operators.forEach((o) => o.addEventListener("click", addOperator));
 digits.forEach((digit) => digit.addEventListener("click", addDigitToScreen));
 clear.addEventListener("click", clearDisplay);
 equals.addEventListener("click", calculate);
+percent.addEventListener("click", percentValue);
