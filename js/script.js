@@ -19,7 +19,11 @@ function clearDisplay() {
 }
 
 function displayLimitations() {
-  if (display.textContent.length >= 9) {
+  if (
+    display.textContent.length >= 9 &&
+    operator === null &&
+    secondOperand.length >= 9
+  ) {
     return true;
   }
 }
