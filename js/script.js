@@ -189,10 +189,28 @@ function addDecimal() {
   console.log("firstOperand: ", firstOperand.join(""));
   console.log("secondOperand: ", secondOperand.join(""));
 
-  if (display.textContent === firstOperand.join("")) {
+  firstOperandDecimals = firstOperand.reduce(
+    (decimalTotal, item) => (item === "." ? (decimalTotal += 1) : decimalTotal),
+    1
+  );
+
+  secondOperandDecimals = secondOperand.reduce(
+    (decimalTotal, item) => (item === "." ? (decimalTotal += 1) : decimalTotal),
+    1
+  );
+
+  console.log(firstOperandDecimals);
+
+  if (
+    display.textContent === firstOperand.join("") &&
+    firstOperandDecimals === 1
+  ) {
     firstOperand.push(".");
     display.textContent = firstOperand.join("");
-  } else {
+  } else if (
+    display.textContent === secondOperand.join("") &&
+    secondOperandDecimals === 1
+  ) {
     secondOperand.push(".");
     display.textContent = secondOperand.join("");
   }
