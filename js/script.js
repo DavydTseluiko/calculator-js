@@ -4,6 +4,7 @@ const operators = document.querySelectorAll(".operator");
 const clear = document.querySelector(".clear");
 const equals = document.querySelector(".equals");
 const percent = document.querySelector(".percent");
+const decimal = document.querySelector(".decimal");
 
 let firstOperand = [];
 let operator = null;
@@ -183,6 +184,20 @@ function percentValue() {
   display.textContent /= 100;
 }
 
+function addDecimal() {
+  console.log("current number on display: ", display.textContent);
+  console.log("firstOperand: ", firstOperand.join(""));
+  console.log("secondOperand: ", secondOperand.join(""));
+
+  if (display.textContent === firstOperand.join("")) {
+    firstOperand.push(".");
+    display.textContent = firstOperand.join("");
+  } else {
+    secondOperand.push(".");
+    display.textContent = secondOperand.join("");
+  }
+}
+
 console.log("digits: ", digits);
 console.log("operators: ", operators);
 
@@ -191,3 +206,4 @@ digits.forEach((digit) => digit.addEventListener("click", addDigitToScreen));
 clear.addEventListener("click", clearDisplay);
 equals.addEventListener("click", calculate);
 percent.addEventListener("click", percentValue);
+decimal.addEventListener("click", addDecimal);
