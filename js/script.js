@@ -5,6 +5,7 @@ const clear = document.querySelector(".clear");
 const equals = document.querySelector(".equals");
 const percent = document.querySelector(".percent");
 const decimal = document.querySelector(".decimal");
+const unaryPlusAndMinus = document.querySelector(".unary-plus-minus");
 
 let firstOperand = [];
 let operator = null;
@@ -22,9 +23,10 @@ function clearDisplay() {
 
 function displayLimitations() {
   if (
-    display.textContent.length >= 9 &&
-    operator === null &&
-    secondOperand.length >= 9
+    (display.textContent.length >= 9 &&
+      operator === null &&
+      secondOperand.length <= 9) ||
+    (operator !== null && display.textContent.length >= 9)
   ) {
     return true;
   }
@@ -216,6 +218,28 @@ function addDecimal() {
   }
 }
 
+function addUnaryMinusAndPlus() {
+  console.log("current number on display: ", display.textContent);
+
+  if (display.textContent >= 0 && display.textContent.length < 9) {
+    if (display.textContent === firstOperand.join("")) {
+      firstOperand.unshift("-");
+      display.textContent = firstOperand.join("");
+    } else {
+      secondOperand.unshift("-");
+      display.textContent = secondOperand.join("");
+    }
+  } else {
+    if (display.textContent === firstOperand.join("")) {
+      firstOperand.shift();
+      display.textContent = firstOperand.join("");
+    } else {
+      secondOperand.shift("");
+      display.textContent = secondOperand.join("");
+    }
+  }
+}
+
 console.log("digits: ", digits);
 console.log("operators: ", operators);
 
@@ -225,3 +249,4 @@ clear.addEventListener("click", clearDisplay);
 equals.addEventListener("click", calculate);
 percent.addEventListener("click", percentValue);
 decimal.addEventListener("click", addDecimal);
+unaryPlusAndMinus.addEventListener("click", addUnaryMinusAndPlus);
